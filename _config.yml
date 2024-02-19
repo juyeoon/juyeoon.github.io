@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: JUICELOG # the main title
 
-tagline: Juyeon's DevLog # it will display as the sub-title
+tagline: 오늘보다 편리한 내일 # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   Devlog
