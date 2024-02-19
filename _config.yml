@@ -201,3 +201,7 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+# 외부 링크 새 탭에서 열리게 설정
+plugins:
+  - jekyll-target-blank
