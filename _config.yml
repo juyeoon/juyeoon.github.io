@@ -50,7 +50,7 @@ google_site_verification: # fill in to your verification string
 # The end of `jekyll-seo-tag` settings
 
 google_analytics:
-  id: # fill in your Google Analytics ID
+  id: G-9TRQD4EPHL # fill in your Google Analytics ID
 
 goatcounter:
   id: # fill in your Goatcounter ID
@@ -66,7 +66,7 @@ goatcounter:
 #     light  - Use the light color scheme
 #     dark   - Use the dark color scheme
 #
-theme_mode:
+theme_mode: dark
 # The CDN endpoint for images.
 # Notice that once it is assigned, the CDN url
 # will be added to all image (site avatar & posts' images) paths starting with '/'
@@ -202,6 +202,6 @@ jekyll-archives:
     tag: /tags/:name/
     category: /categories/:name/
 
-# 외부 링크 새 탭에서 열리게 설정
+  # 외부 링크 새 탭에서 열리게 설정
 plugins:
   - jekyll-target-blank
