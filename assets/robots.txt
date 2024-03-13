@@ -7,4 +7,6 @@ User-agent: *
 
 Disallow: /norobots/
 
-Sitemap: {{ '/sitemap.xml' | absolute_url }}
+Allow: /
+
+Sitemap: {{ '/sitemap.xml' | relative_url | prepend: site.url }}
