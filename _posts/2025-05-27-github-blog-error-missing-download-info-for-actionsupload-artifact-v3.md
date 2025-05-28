@@ -11,7 +11,7 @@ tags: [github, blog, error]
 
 오랜만에 블로그에 새로운 포스트를 작성하고 제대로 올라갔나 확인하는데 빌드 에러가 발생했음.
 
-</br>
+<br>
 
 ## **해결 방법**
 
@@ -23,7 +23,7 @@ tags: [github, blog, error]
 
 [이 스레드](https://github.com/orgs/community/discussions/152695)의 위의 글을 참고해서 코드를 수정하여 다시 커밋하니 잘 올라가는 것을 확인할 수 있었음.
 
-</br>
+<br>
 
 - 적용한 수정 사항:
 
@@ -35,7 +35,7 @@ tags: [github, blog, error]
 
   - `uses: actions/deploy-pages@v2` -> `uses: actions/deploy-pages@v4`
 
-</br>
+<br>
 
 ## **참고 사이트**
 
