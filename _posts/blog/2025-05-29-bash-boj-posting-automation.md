@@ -203,6 +203,8 @@ chmod +x create-boj-post.sh      # 최초 1회만 (실행 권한)
 ./create-boj-post.sh             # 매번 실행
 ```
 
+![Image](https://github.com/user-attachments/assets/4b7a477b-86a8-4cf9-94cf-c849c3bdeec2)
+
 <br>
 
 ## 📁 `.gitignore` 구성
