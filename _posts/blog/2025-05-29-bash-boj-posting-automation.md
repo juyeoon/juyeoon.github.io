@@ -150,7 +150,7 @@ CODE_FILE_NAME=$(echo "$CODE_FILE_NAME" | xargs)
 
 # 코드 파일 경로 설정
 CODE_FOLDER_ID=$(( (PROBLEM_ID / 1000) * 1000 ))
-CODE_FOLDER_NAME="B${CODE_FOLDER_ID}"
+CODE_FOLDER_NAME=$(printf "B%05d" "$CODE_FOLDER_ID")
 CODE_PATH="/d/git_Algorithm/Algorithm/${CODE_FOLDER_NAME}/${CODE_FILE_NAME}.java"
 
 # 코드 파일 확인
