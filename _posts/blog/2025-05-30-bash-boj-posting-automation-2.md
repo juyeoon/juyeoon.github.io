@@ -21,9 +21,12 @@ tags: [github, blog, shell, bash, 자동화, 백준, vscode]
 ## 🖥 추가한 코드
 
 ```bash
+...
+
 # VS Code로 자동 열기
 POST_PATH="$POST_DIR/$FILENAME"
 code "$POST_PATH"
+
 ```
 
 <br>
