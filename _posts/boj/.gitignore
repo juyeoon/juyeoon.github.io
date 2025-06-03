@@ -2,3 +2,4 @@
 create-boj-post.sh
 boj-template.md
 problem-info.txt
+*.lnk
