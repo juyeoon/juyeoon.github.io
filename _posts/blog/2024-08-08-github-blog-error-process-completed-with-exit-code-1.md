@@ -7,7 +7,7 @@ tags: [github, blog, error]
 
 ## **문제**
 
-![image](https://github.com/user-attachments/assets/b864e4f9-5d4c-4794-bf52-d196b4e7652d)
+![image](/assets/img/posts_img/2024-08-08-blog-01.png)
 
 블로그에 새로운 포스트를 작성하고 제대로 올라갔나 확인하려고 레파지토리에 들어갔는데 커밋 로그에 'x'가 되어있었다.
 
@@ -19,7 +19,7 @@ tags: [github, blog, error]
 
 ## **해결 방법**
 
-![image](https://github.com/user-attachments/assets/cc49139c-0ffc-49d2-8c02-f583c997cc7f)
+![image](/assets/img/posts_img/2024-08-08-blog-02.png)
 
 **<U>원인은 포스트 글 설정에서 문제가 생겼던 모양.</U>**
 
