@@ -19,7 +19,7 @@ tags: [github, blog, error]
 
 ## **해결 방법**
 
-![image](/assets/img/posts_img/2024-08-08-blog-02.png)
+![image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2024-08-08-blog-02.png)
 
 **<U>원인은 포스트 글 설정에서 문제가 생겼던 모양.</U>**
 
