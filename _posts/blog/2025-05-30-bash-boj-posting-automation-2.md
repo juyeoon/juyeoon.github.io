@@ -36,7 +36,7 @@ code "$POST_PATH"
 - `code` 명령어가 작동하려면 vscode가 설치되어 있어야 하며,  
   CLI에서 사용할 수 있도록 PATH에 등록되어 있어야 합니다.
 
-![Image](https://github.com/user-attachments/assets/c77355eb-1a75-4545-9b62-e1b884652b04)
+![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-05-30-blog-01.png)
 
 <small>▲ code 명령어 작동 확인</small>
 

@@ -36,8 +36,8 @@ Git Bash 바로가기를 만들어, **아이콘을 실행하면 포스트 생성
 
 시작 메뉴에서 **Git Bash**를 검색한 뒤, **파일 위치 열기**를 선택하면 바로가기 파일이 있는 위치로 이동합니다.
 
-![Image](https://github.com/user-attachments/assets/b506f27d-6598-425d-86ca-6204aeed48d1)
-![Image](https://github.com/user-attachments/assets/38db76a5-9d09-4015-9e23-e710f3cc6c06)
+![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-01.png)
+![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-02.png)
 
 해당 바로가기 아이콘을 우클릭한 뒤 **속성**을 확인하면, 실제 실행 파일 경로를 확인할 수 있습니다.
 
@@ -45,17 +45,17 @@ Git Bash 바로가기를 만들어, **아이콘을 실행하면 포스트 생성
 C:\Program Files\Git\git-bash.exe
 ```
 
-![Image](https://github.com/user-attachments/assets/3a53dfbf-ead3-4154-9e16-ce2619f71fb3)
+![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-03.png)
 
 이제 이 경로를 바탕으로 **`git-bash.exe`의 위치를 찾은 후**, 해당 `git-bash.exe` 파일을 우클릭하고 **"보내기 → 바탕화면에 바로 가기 만들기"**를 선택하여 바탕화면에 바로가기를 생성합니다.
 
-![Image](https://github.com/user-attachments/assets/3cf41103-337d-4066-9b1c-baff217908cf)
+![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-04.png)
 
 마지막으로, 바탕화면에 생성된 이 **바로가기 파일을 실행할 쉘 스크립트가 있는 폴더(`...\_posts\boj\`)로 이동**시킵니다.
 
 또한, 스크립트 용도에 맞게 바로가기 파일의 이름도 함께 바꿔줍니다.
 
-![Image](https://github.com/user-attachments/assets/6665778d-0e77-444e-ba17-8c6ad1ff1db6)
+![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-05.png)
 
 <br>
 
@@ -63,7 +63,7 @@ C:\Program Files\Git\git-bash.exe
 
 바로가기 아이콘을 **우클릭 → 속성**으로 들어가, 아래와 같이 **대상** 항목과 **시작 위치** 항목을 수정합니다.
 
-![Image](https://github.com/user-attachments/assets/843f3534-70b6-416a-bf01-71a9012edeed)
+![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-06.png)
 
 ### 대상
 
@@ -102,7 +102,7 @@ D:\juyeoon.github.io\_posts\boj
 
 스크립트의 출력 결과가 정상적으로 표시되고, `read` 명령어 덕분에 창이 바로 닫히지 않고 일시 정지 상태로 유지됩니다.
 
-![Image](https://github.com/user-attachments/assets/273fcd4c-16a7-481a-a65a-f30544164c03)
+![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-07.png)
 
 <br>
 
