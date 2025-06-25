@@ -7,7 +7,7 @@ tags: [github, blog, error]
 
 ## **문제**
 
-![image](/assets/img/posts_img/2024-08-08-blog-01.png)
+![image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2024-08-08-blog-01.png)
 
 블로그에 새로운 포스트를 작성하고 제대로 올라갔나 확인하려고 레파지토리에 들어갔는데 커밋 로그에 'x'가 되어있었다.
 
