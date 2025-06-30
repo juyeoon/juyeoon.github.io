@@ -7,7 +7,8 @@ tags: [github, blog, shell, bash, 자동화, 백준, windows, git-bash, 바로�
 
 👉 이전 포스트:
 
-[1. 문제 풀이 포스트 자동 생성 자동화](https://juyeoon.github.io/posts/bash-boj-posting-automation/) 
+[1. 문제 풀이 포스트 자동 생성 자동화](https://juyeoon.github.io/posts/bash-boj-posting-automation/)
+
 [2. 생성된 포스트를 vscode로 자동 열기](https://juyeoon.github.io/posts/bash-boj-posting-automation-2/)
 
 이전 포스트에서 만든 스크립트는 Git Bash를 우클릭해서 열고 명령어를 입력해 실행하는 방식으로 계속 사용하고 있었습니다. 하지만 입력 없이 자동으로 동작하는 스크립트이기 때문에 단순 클릭만으로 실행되면 훨씬 편리하겠다는 생각이 들었고, 이를 개선해보게 되었습니다.
@@ -113,7 +114,7 @@ D:\juyeoon.github.io\_posts\boj
 ```
 ...
 
-.lnk
+*.lnk
 
 ```
 
