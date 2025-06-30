@@ -10,129 +10,92 @@ layout: page
 
 {% assign group_index = 0 %}
 
-{% assign sort_categories = site.categories | sort %}
+{% assign category_tree = {} %}
 
-{% for category in sort_categories %}
-  {% assign category_name = category | first %}
-  {% assign posts_of_category = category | last %}
-  {% assign first_post = posts_of_category | first %}
+{% for post in site.posts %}
+{% assign cat0 = post.categories[0] %}
+{% assign cat1 = post.categories[1] %}
 
-  {% if category_name == first_post.categories[0] %}
-    {% assign sub_categories = '' | split: '' %}
+{% if category_tree[cat0] == nil %}
+{% assign category_tree = category_tree | merge: { cat0: [] } %}
+{% endif %}
 
-    {% for post in posts_of_category %}
-      {% assign second_category = post.categories[1] %}
-      {% if second_category %}
-        {% unless sub_categories contains second_category %}
-          {% assign sub_categories = sub_categories | push: second_category %}
-        {% endunless %}
-      {% endif %}
-    {% endfor %}
+{% if cat1 and category_tree[cat0] contains cat1 == false %}
+{% assign updated = category_tree[cat0] | push: cat1 %}
+{% assign category_tree = category_tree | merge: { cat0: updated } %}
+{% endif %}
+{% endfor %}
 
-    {% assign sub_categories = sub_categories | sort %}
-    {% assign sub_categories_size = sub_categories | size %}
+{% assign group_index = 0 %}
+{% for top_cat in category_tree %}
+{% assign sub_cats = top_cat[1] %}
+{% assign sub_categories_size = sub_cats | size %}
 
-    <div class="card categories">
-      <!-- top-category -->
-      <div
-        id="{{ HEAD_PREFIX }}{{ group_index }}"
-        class="card-header d-flex justify-content-between hide-border-bottom"
-      >
-        <span class="ms-2">
-          <i class="far fa-folder{% if sub_categories_size > 0 %}-open{% endif %} fa-fw"></i>
+<div class="card categories">
+  <!-- top-category -->
+  <div id="h_{{ group_index }}" class="card-header d-flex justify-content-between hide-border-bottom">
+    <span class="ms-2">
+      <i class="far fa-folder{% if sub_categories_size > 0 %}-open{% endif %} fa-fw"></i>
 
-          {% capture _category_url %}/categories/{{ category_name | slugify | url_encode }}/{% endcapture %}
-          <a href="{{ _category_url | relative_url }}" class="mx-2">{{ category_name }}</a>
+      {% capture _category_url %}/categories/{{ top_cat[0] | slugify | url_encode }}/{% endcapture %}
+      <a href="{{ _category_url | relative_url }}" class="mx-2">{{ top_cat[0] }}</a>
 
-          <!-- content count -->
-          {% assign top_posts_size = site.categories[category_name] | size %}
-          <span class="text-muted small font-weight-light">
-            {% if sub_categories_size > 0 %}
-              {{ sub_categories_size }}
-              {% if sub_categories_size > 1 %}
-                {{
-                  site.data.locales[lang].categories.category_measure.plural
-                  | default: site.data.locales[lang].categories.category_measure
-                }}
-              {% else %}
-                {{
-                  site.data.locales[lang].categories.category_measure.singular
-                  | default: site.data.locales[lang].categories.category_measure
-                }}
-              {% endif -%}
-              ,
-            {% endif %}
-
-            {{ top_posts_size }}
-
-            {% if top_posts_size > 1 %}
-              {{
-                site.data.locales[lang].categories.post_measure.plural
-                | default: site.data.locales[lang].categories.post_measure
-              }}
-            {% else %}
-              {{
-                site.data.locales[lang].categories.post_measure.singular
-                | default: site.data.locales[lang].categories.post_measure
-              }}
-            {% endif %}
-          </span>
-        </span>
-
-        <!-- arrow -->
+      <span class="text-muted small font-weight-light">
         {% if sub_categories_size > 0 %}
-          <a
-            href="#{{ LIST_PREFIX }}{{ group_index }}"
-            data-bs-toggle="collapse"
-            aria-expanded="true"
-            aria-label="{{ HEAD_PREFIX }}{{ group_index }}-trigger"
-            class="category-trigger hide-border-bottom"
-          >
-            <i class="fas fa-fw fa-angle-down"></i>
-          </a>
-        {% else %}
-          <span data-bs-toggle="collapse" class="category-trigger hide-border-bottom disabled">
-            <i class="fas fa-fw fa-angle-right"></i>
-          </span>
+        {{ sub_categories_size }}
+        {{
+        sub_categories_size > 1
+        | default: site.data.locales[lang].categories.category_measure.plural
+        | default: site.data.locales[lang].categories.category_measure
+        }},
         {% endif %}
-      </div>
-      <!-- .card-header -->
 
-      <!-- Sub-categories -->
-      {% if sub_categories_size > 0 %}
-        <div id="{{ LIST_PREFIX }}{{ group_index }}" class="collapse show" aria-expanded="true">
-          <ul class="list-group">
-            {% for sub_category in sub_categories %}
-              <li class="list-group-item">
-                <i class="far fa-folder fa-fw"></i>
+        {{ site.categories[top_cat[0]] | size }}
 
-                {% capture _sub_ctg_url %}/categories/{{ sub_category | slugify | url_encode }}/{% endcapture %}
-                <a href="{{ _sub_ctg_url | relative_url }}" class="mx-2">{{ sub_category }}</a>
+        {{
+        site.categories[top_cat[0]] | size > 1
+        | default: site.data.locales[lang].categories.post_measure.plural
+        | default: site.data.locales[lang].categories.post_measure
+        }}
+      </span>
+    </span>
 
-                {% assign posts_size = site.categories[sub_category] | size %}
-                <span class="text-muted small font-weight-light">
-                  {{ posts_size }}
+    {% if sub_categories_size > 0 %}
+    <a href="#l_{{ group_index }}" data-bs-toggle="collapse" aria-expanded="true"
+      aria-label="h_{{ group_index }}-trigger" class="category-trigger hide-border-bottom">
+      <i class="fas fa-fw fa-angle-down"></i>
+    </a>
+    {% else %}
+    <span data-bs-toggle="collapse" class="category-trigger hide-border-bottom disabled">
+      <i class="fas fa-fw fa-angle-right"></i>
+    </span>
+    {% endif %}
+  </div>
 
-                  {% if posts_size > 1 %}
-                    {{
-                      site.data.locales[lang].categories.post_measure.plural
-                      | default: site.data.locales[lang].categories.post_measure
-                    }}
-                  {% else %}
-                    {{
-                      site.data.locales[lang].categories.post_measure.singular
-                      | default: site.data.locales[lang].categories.post_measure
-                    }}
-                  {% endif %}
-                </span>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-    </div>
-    <!-- .card -->
+  {% if sub_categories_size > 0 %}
+  <div id="l_{{ group_index }}" class="collapse show" aria-expanded="true">
+    <ul class="list-group">
+      {% for sub_cat in sub_cats %}
+      <li class="list-group-item">
+        <i class="far fa-folder fa-fw"></i>
 
-    {% assign group_index = group_index | plus: 1 %}
+        {% capture _sub_ctg_url %}/categories/{{ sub_cat | slugify | url_encode }}/{% endcapture %}
+        <a href="{{ _sub_ctg_url | relative_url }}" class="mx-2">{{ sub_cat }}</a>
+
+        <span class="text-muted small font-weight-light">
+          {{ site.categories[sub_cat] | size }}
+          {{
+          site.categories[sub_cat] | size > 1
+          | default: site.data.locales[lang].categories.post_measure.plural
+          | default: site.data.locales[lang].categories.post_measure
+          }}
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
   {% endif %}
+</div>
+
+{% assign group_index = group_index | plus: 1 %}
 {% endfor %}
