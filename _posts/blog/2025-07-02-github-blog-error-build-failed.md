@@ -101,6 +101,37 @@ repo - Settings - Pages - Build and deployment에서 브랜치를 새로 만든 
 
 이것 역시 빌드는 잘 되는데 블로그에 적용이 안 된다.
 
+---
+
+---
+
+(+ 25.07.08 추가)
+
+Github Actions를 알아보다가 알게된 건데 테마를 받을 때 Github Actions 설정도 가져왔었다. 
+
+`.yml` 파일을 보니까 deploy `branches` 설정이 되어있더라.
+
+```yaml
+name: "Build and Deploy"
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
+```
+
+그래서 repo setting을 바꿔도 빌드가 그 브랜치로 되지 않았었다.
+
+만약 setting을 바꿔서 브랜치를 바꾸려면 `branches:`를 `- '*'`로 바꿔야 한다. 
+
+---
+
+---
+
 `main` 브랜치에도 같은 테스트 페이지를 업로드 해본다.
 
 ![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-07-02-blog-11.png)
