@@ -67,7 +67,40 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
+      # notify job에서 GitHub Pages 배포 URL을 사용하기 위함
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  notify: # Slack 알림을 보내는 job
+    runs-on: ubuntu-latest # 실행 환경 (Ubuntu 최신)
+    needs: [build, deploy] # build, deploy job이 끝난 뒤에 실행
+    if: always() # build/deploy가 실패하거나 스킵돼도 항상 실행
+    steps:
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1.27.0 # 공식 Slack 액션 사용
+        with:
+          channel-id: ${{ secrets.SLACK_CHANNEL_ID }} # 알림을 보낼 Slack 채널 (Secrets에 저장한 값)
+          payload: |  # Slack으로 보낼 메시지(JSON 형식)
+            {
+              "attachments": [
+                {
+                  "color": "${{ (needs.build.result == 'success' && needs.deploy.result == 'success') && '#2eb886' || '#e01e5a' }}", 
+                  "title": "Build and Deploy · ${{ (needs.build.result == 'success' && needs.deploy.result == 'success') && 'success' || 'failed' }}",
+                  "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                  "fields": [
+                    { "title": "Build",   "value": "${{ needs.build.result }}",  "short": true },
+                    { "title": "Deploy",  "value": "${{ needs.deploy.result }}", "short": true },
+                    { "title": "Branch",  "value": "${{ github.ref_name }}",     "short": true },
+                    { "title": "Actor",   "value": "@${{ github.actor }}",       "short": true },
+                    { "title": "Pages URL", "value": "${{ needs.deploy.result == 'success' && needs.deploy.outputs.page_url || github.server_url + '/' + github.repository }}", "short": false }
+                  ],
+                  "footer": "GitHub Pages"
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} # Slack API 인증용 Bot Token (Secrets에 저장)
