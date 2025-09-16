@@ -96,7 +96,7 @@ jobs:
                     { "title": "Deploy",  "value": "${{ needs.deploy.result }}", "short": true },
                     { "title": "Branch",  "value": "${{ github.ref_name }}",     "short": true },
                     { "title": "Actor",   "value": "@${{ github.actor }}",       "short": true },
-                    { "title": "Pages URL", "value": "${{ needs.deploy.result == 'success' && needs.deploy.outputs.page_url || github.server_url + '/' + github.repository }}", "short": false }
+                    { "title": "Pages URL", "value": "${{ needs.deploy.result == 'success' && needs.deploy.outputs.page_url || format('{0}/{1}', github.server_url, github.repository) }}", "short": false}
                   ],
                   "footer": "GitHub Pages"
                 }
