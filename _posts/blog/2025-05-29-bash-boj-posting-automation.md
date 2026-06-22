@@ -50,7 +50,7 @@ tags: [github, blog, shell, bash, 자동화, 백준]
 title: "[BOJ/백준] {{PROBLEM_ID}}번 : {{PROBLEM_NAME}} (Java)"
 date: {{POST_DATE_TIME}}
 categories: [알고리즘, Java]
-tags: [알고리즘, Java, BOJ, 백준, {{PROBLEM_TIER}}, {{PROBLEM_ID}}번, {{PROBLEM_TYPE}}]
+tags: [알고리즘, java, boj, 백준, {{PROBLEM_TIER}}, {{PROBLEM_ID}}번, {{PROBLEM_TYPE}}]
 ---
 
 ...

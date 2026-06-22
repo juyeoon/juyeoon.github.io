@@ -2,7 +2,7 @@
 title: "[Github Blog] Git Bash 스크립트를 아이콘 클릭으로 실행하기"
 date: 2025-06-03 17:12:00 +09:00
 categories: [Blog, Posting]
-tags: [github, blog, shell, bash, 자동화, 백준, windows, git-bash, 바로가기]
+tags: [github, blog, shell, bash, 자동화, 백준, windows, git bash, 바로가기]
 ---
 
 👉 이전 포스트:
@@ -37,7 +37,7 @@ Git Bash 바로가기를 만들어, **아이콘을 실행하면 포스트 생성
 
 시작 메뉴에서 **Git Bash**를 검색한 뒤, **파일 위치 열기**를 선택하면 바로가기 파일이 있는 위치로 이동합니다.
 
-![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-01.png) 
+![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-01.png)
 ![Image]({{ site.url }}{{ site.baseurl }}/assets/img/posts_img/2025-06-03-blog-02.png)
 
 해당 바로가기 아이콘을 우클릭한 뒤 **속성**을 확인하면, 실제 실행 파일 경로를 확인할 수 있습니다.

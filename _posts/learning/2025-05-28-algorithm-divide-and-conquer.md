@@ -1,14 +1,14 @@
 ---
 title: "[알고리즘] 분할 정복(Divide and Conquer)"
 date: 2025-05-28 17:57:00 +09:00
-categories: [알고리즘, 정리]
+categories: [알고리즘, 이론]
 tags:
   [
     알고리즘,
 	알고리즘기법,
     분할정복,
     재귀,
-	DivideAndConquer
+    divide and conquer
   ]
 ---
 
@@ -99,11 +99,9 @@ tags:
 - 다만 대부분의 경우 오버헤드는 **무시 가능**하며, **코드 가독성과 구조화** 측면에서 함수 분리는 유익함
 
 - **오버헤드를 고려해야 하는 상황**
-
   - 재귀 호출이 10⁷~10⁹번 이상인 경우
 
   - 자바에서 스택 깊이 초과 (StackOverflow) 위험이 있는 경우
-
     - 일반적인 JVM에서는 약 7,000~10,000 재귀 깊이에서 StackOverflowError 발생
 
 <br/>

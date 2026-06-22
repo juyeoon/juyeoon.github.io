@@ -1,8 +1,8 @@
 ---
 title: "[Java] String.compareTo() - 문자열 사전 순 비교"
 date: 2025-06-30 17:54:21 +09:00
-categories: [Java, 메서드]
-tags: [Java, String, compareTo, String 메서드, 문자열, 사전순 정렬, 문자열 비교]
+categories: [java, 메서드]
+tags: [java, string, compareto, String 메서드, 문자열, 사전순 정렬, 문자열 비교]
 ---
 
 <!-- ========================================================================== -->
