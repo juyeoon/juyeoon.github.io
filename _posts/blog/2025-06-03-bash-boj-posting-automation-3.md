@@ -1,7 +1,7 @@
 ---
 title: "[Github Blog] Git Bash 스크립트를 아이콘 클릭으로 실행하기"
 date: 2025-06-03 17:12:00 +09:00
-categories: [Blog, Posting]
+categories: [blog, posting]
 tags: [github, blog, shell, bash, 자동화, 백준, windows, git bash, 바로가기]
 ---
 

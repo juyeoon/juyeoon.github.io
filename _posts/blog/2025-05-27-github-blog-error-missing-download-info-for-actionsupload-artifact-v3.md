@@ -1,7 +1,7 @@
 ---
 title: "[Github Blog] 'Error: Missing download info for actions/upload-artifact@v3.' (해결)"
 date: 2025-05-27 18:01:00 +09:00
-categories: [Blog, Error]
+categories: [blog, error]
 tags: [github, blog, error]
 ---
 
@@ -28,7 +28,6 @@ tags: [github, blog, error]
 - 적용한 수정 사항:
 
   `.github/workflows/pages-deploy.yml`의
-
   - `uses: actions/configure-pages@v3` -> `uses: actions/configure-pages@v4`
 
   - `uses: actions/upload-pages-artifact@v1` -> `uses: actions/upload-pages-artifact@v3`

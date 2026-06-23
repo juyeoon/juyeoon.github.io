@@ -1,7 +1,7 @@
 ---
 title: "[Github Blog] 자동 생성된 포스트를 vscode로 자동으로 열기"
 date: 2025-05-30 18:37:00 +09:00
-categories: [Blog, Posting]
+categories: [blog, posting]
 tags: [github, blog, shell, bash, 자동화, 백준, vscode]
 ---
 

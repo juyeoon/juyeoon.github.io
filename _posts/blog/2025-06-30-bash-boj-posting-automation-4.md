@@ -1,7 +1,7 @@
 ---
 title: "[Github Blog] 자동 포스팅 생성 시 기타 옵션"
 date: 2025-06-30 17:05:16 +09:00
-categories: [Blog, Posting]
+categories: [blog, posting]
 tags: [github, blog, shell, bash, 자동화, windows, git bash, 포스팅]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "[Github Blog] 'Error: Process completed with exit code 1.' (해결)"
 date: 2024-08-08 17:39:00 +09:00
-categories: [Blog, Error]
+categories: [blog, error]
 tags: [github, blog, error]
 ---
 
