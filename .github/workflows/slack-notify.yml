@@ -1,0 +1,127 @@
+name: Slack Notify
+
+on:
+  workflow_run:
+    workflows:
+      - Build and Deploy
+    types:
+      - completed
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get job results
+        id: job-results
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          jobs=$(gh api repos/$REPO/actions/runs/$RUN_ID/jobs)
+
+          build_result=$(echo "$jobs" | jq -r '.jobs[] | select(.name == "build") | .conclusion')
+          deploy_result=$(echo "$jobs" | jq -r '.jobs[] | select(.name == "deploy") | .conclusion')
+
+          echo "build_result=${build_result:-unknown}" >> "$GITHUB_OUTPUT"
+          echo "deploy_result=${deploy_result:-unknown}" >> "$GITHUB_OUTPUT"
+
+      - name: Set Slack status
+        id: slack-status
+        run: |
+          result="${{ github.event.workflow_run.conclusion }}"
+
+          if [ "$result" = "success" ]; then
+            echo "title=✅ GitHub Pages · Success" >> "$GITHUB_OUTPUT"
+          elif [ "$result" = "failure" ]; then
+            echo "title=❌ GitHub Pages · Failed" >> "$GITHUB_OUTPUT"
+          elif [ "$result" = "cancelled" ]; then
+            echo "title=⚪ GitHub Pages · Cancelled" >> "$GITHUB_OUTPUT"
+          elif [ "$result" = "skipped" ]; then
+            echo "title=🟡 GitHub Pages · Skipped" >> "$GITHUB_OUTPUT"
+          else
+            echo "title=ℹ️ GitHub Pages · $result" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            {
+              "channel": "${{ secrets.SLACK_CHANNEL_ID }}",
+              "text": "${{ steps.slack-status.outputs.title }}",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "${{ steps.slack-status.outputs.title }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*🟢 Build*\n`${{ steps.job-results.outputs.build_result }}`"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*🚀 Deploy*\n`${{ steps.job-results.outputs.deploy_result }}`"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*🌿 Branch*\n`${{ github.event.workflow_run.head_branch }}`"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*👤 Actor*\n@${{ github.event.workflow_run.actor.login }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*📌 Commit*\n${{ github.event.workflow_run.head_commit.message }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*📌 SHA*\n`${{ github.event.workflow_run.head_sha }}`"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*🌐 Pages URL*\nhttps://${{ github.repository_owner }}.github.io"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*🔗 Workflow*\n${{ github.event.workflow_run.html_url }}"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "GitHub Pages • Build and Deploy"
+                    }
+                  ]
+                }
+              ]
+            }
