@@ -1,7 +1,7 @@
 ---
 title: "[Github Blog] Bash로 백준 풀이 포스팅 자동화하기"
 date: 2025-05-29 22:30:00 +09:00
-categories: [blog, posting]
+categories: [blog, posting automation]
 tags: [github, blog, shell, bash, 자동화, 백준]
 ---
 
