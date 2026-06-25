@@ -6,6 +6,9 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 POST_MAIN_DIR="$ROOT_DIR/_posts"
 
+
+# 현재 날짜
+POST_DATE="$(date '+%Y-%m-%d')"
 POST_DATE_TIME="$(date '+%Y-%m-%d %H:%M:%S %:z')"
 
 # 가장 최근 수정된 md 포스트 찾기
@@ -20,7 +23,6 @@ if [ -z "$POST_FILE" ]; then
     echo "❌ _posts 디렉터리에서 md 파일을 찾을 수 없습니다."
     exit 1
 fi
-
 echo
 echo "===== 날짜 입력 대상 파일 ====="
 echo "$POST_FILE"
@@ -41,6 +43,24 @@ fi
 if [ "$CONFIRM" != "y" ]; then
     echo "❌ 날짜 입력을 취소했습니다."
     exit 0
+fi
+
+
+# 파일명 변경
+OLD_NAME="$(basename "$POST_FILE")"
+NEW_NAME="$(echo "$OLD_NAME" | sed -E "s/^[0-9]{4}-[0-9]{2}-[0-9]{2}/${POST_DATE}/")"
+
+NEW_POST_FILE="$(dirname "$POST_FILE")/$NEW_NAME"
+
+# 파일명 변경 (날짜가 달라질 경우만)
+if [ "$POST_FILE" != "$NEW_POST_FILE" ]; then
+    mv "$POST_FILE" "$NEW_POST_FILE"
+    POST_FILE="$NEW_POST_FILE"
+
+    echo "✅ 파일명 변경"
+    echo "   $OLD_NAME"
+    echo "   → $NEW_NAME"
+    echo
 fi
 
 # Front Matter 내부의 date만 수정

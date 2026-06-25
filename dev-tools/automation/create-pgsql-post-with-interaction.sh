@@ -29,8 +29,8 @@ fi
 echo
 echo "===== 포스팅 정보 입력 ====="
 
-read -p "문서 제목: " PROBLEM_TITLE
-read -p "문서 번호: " PROBLEM_ID
+read -p "문제 제목: " PROBLEM_TITLE
+read -p "문제 번호: " PROBLEM_ID
 read -p "언어: " LANGUAGE
 read -p "난이도: " LEVEL
 
