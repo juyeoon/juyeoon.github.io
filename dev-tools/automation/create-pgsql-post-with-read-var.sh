@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Chirpy 7.5.0 버전 구조 기준
-# 변수 파일을 읽는 버전
+# 변수 파일을 읽어 _drafts 디렉터리에 초안 포스트를 생성하는 버전
 
 # 현재 스크립트가 위치한 디렉터리 절대 경로
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 # 프로젝트 루트(스크립트 기준 상위 2단계)
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
-# 포스트 디렉터리
-POST_MAIN_DIR="$ROOT_DIR/_posts"
+# 초안 디렉터리
+DRAFT_MAIN_DIR="$ROOT_DIR/_drafts"
 # 템플릿 디렉터리
 TEMPLATE_DIR="$(cd "$SCRIPT_DIR/../templates" && pwd)"
 
@@ -23,7 +23,7 @@ POST_SUB_DIR="pgsql"
 # ================
 
 # 파일 경로 변수
-POSTING_DIR="$POST_MAIN_DIR/$POST_SUB_DIR"  # 결과 포스팅 파일 저장 경로
+DRAFTING_DIR="$DRAFT_MAIN_DIR/$POST_SUB_DIR"  # 결과 초안 파일 저장 경로
 POSTING_TEMPLATE="$TEMPLATE_DIR/$TEMPLATE_FILE_NAME"
 VAR_INFO_FILE="$SCRIPT_DIR/$VAR_INFO_FILE_NAME"
 
@@ -76,9 +76,8 @@ LEVEL="${vars[LEVEL]}"
 LANGUAGE="${LANGUAGE,,}"
 FILENAME="${POST_DATE}-${POST_SUB_DIR}-${PROBLEM_ID}-${LANGUAGE}.md"
 
-
-# 템플릿 치환 및 코드 삽입
-mkdir -p "$POSTING_DIR"
+# 템플릿 치환 및 초안 생성
+mkdir -p "$DRAFTING_DIR"
 
 sed \
     -e "s|{{PROBLEM_TITLE}}|${PROBLEM_TITLE}|g" \
@@ -86,10 +85,9 @@ sed \
     -e "s|{{LANGUAGE}}|${LANGUAGE}|g" \
     -e "s|{{LEVEL}}|${LEVEL}|g" \
     -e "s|{{POST_DATE_TIME}}|${POST_DATE_TIME}|g" \
-    "$POSTING_TEMPLATE" > "$POSTING_DIR/$FILENAME"
+    "$POSTING_TEMPLATE" > "$DRAFTING_DIR/$FILENAME"
 
-
-echo "✅ 블로그 포스트 생성 완료: $POSTING_DIR/$FILENAME"
+echo "✅ 블로그 초안 생성 완료: $DRAFTING_DIR/$FILENAME"
 
 # VS Code로 자동 열기
-code "$POSTING_DIR/$FILENAME"
+code "$DRAFTING_DIR/$FILENAME"

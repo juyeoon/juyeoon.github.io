@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Chirpy 7.5.0 버전 구조 기준
+# draft 브랜치에서 _drafts 디렉터리에 초안 포스트를 생성하는 스크립트
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
-POST_MAIN_DIR="$ROOT_DIR/_posts"
+DRAFT_MAIN_DIR="$ROOT_DIR/_drafts"
 TEMPLATE_DIR="$(cd "$SCRIPT_DIR/../templates" && pwd)"
 
 POST_DATE="$(date '+%Y-%m-%d')"
@@ -13,7 +14,7 @@ POST_DATE_TIME="$(date '+%Y-%m-%d %H:%M:%S %:z')"
 TEMPLATE_FILE_NAME="pgsql-template.md"
 POST_SUB_DIR="pgsql"
 
-POSTING_DIR="$POST_MAIN_DIR/$POST_SUB_DIR"
+DRAFTING_DIR="$DRAFT_MAIN_DIR/$POST_SUB_DIR"
 POSTING_TEMPLATE="$TEMPLATE_DIR/$TEMPLATE_FILE_NAME"
 
 if [ ! -f "$POSTING_TEMPLATE" ]; then
@@ -55,7 +56,7 @@ fi
 
 FILENAME="${POST_DATE}-${POST_SUB_DIR}-${PROBLEM_ID}-${LANGUAGE}.md"
 
-mkdir -p "$POSTING_DIR"
+mkdir -p "$DRAFTING_DIR"
 
 sed \
     -e "s|{{PROBLEM_TITLE}}|${PROBLEM_TITLE}|g" \
@@ -63,10 +64,10 @@ sed \
     -e "s|{{LANGUAGE}}|${LANGUAGE}|g" \
     -e "s|{{LEVEL}}|${LEVEL}|g" \
     -e "s|{{POST_DATE_TIME}}|${FINAL_POST_DATE_TIME}|g" \
-    "$POSTING_TEMPLATE" > "$POSTING_DIR/$FILENAME"
+    "$POSTING_TEMPLATE" > "$DRAFTING_DIR/$FILENAME"
 
 echo
-echo "✅ 블로그 포스트 생성 완료"
-echo "   $POSTING_DIR/$FILENAME"
+echo "✅ 블로그 초안 생성 완료"
+echo "   $DRAFTING_DIR/$FILENAME"
 
-code "$POSTING_DIR/$FILENAME"
+code "$DRAFTING_DIR/$FILENAME"
