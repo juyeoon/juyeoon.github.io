@@ -25,10 +25,15 @@ fi
 # 최신 원격 정보 가져오기
 git fetch origin
 
-# draft 브랜치의 _posts 하위 md 파일 목록
+# draft 브랜치에는 있고 main 브랜치에는 없는 _posts 하위 md 파일 목록
 mapfile -t POST_LIST < <(
   git ls-tree -r --name-only "$SOURCE_REF" "$POST_ROOT" \
-    | grep '\.md$' || true
+    | grep '\.md$' \
+    | while read -r post; do
+        if ! git cat-file -e "origin/$TARGET_BRANCH:$post" 2>/dev/null; then
+          echo "$post"
+        fi
+      done
 )
 
 if [ "${#POST_LIST[@]}" -eq 0 ]; then
