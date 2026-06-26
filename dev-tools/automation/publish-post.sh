@@ -22,7 +22,10 @@ fi
 git fetch origin
 
 # draft 브랜치의 _posts 하위 md 파일 목록
-mapfile -t POST_LIST < <(git ls-tree -r --name-only "$SOURCE_REF" "$POST_ROOT" | grep '\.md$' || true)
+mapfile -t POST_LIST < <(
+  git ls-tree -r --name-only "$SOURCE_REF" "$POST_ROOT" \
+    | grep '\.md$' || true
+)
 
 if [ "${#POST_LIST[@]}" -eq 0 ]; then
   echo "❌ $SOURCE_REF 의 $POST_ROOT 에서 포스트를 찾을 수 없습니다."
@@ -56,14 +59,24 @@ if [ "$INDEX" -lt 0 ] || [ "$INDEX" -ge "${#POST_LIST[@]}" ]; then
 fi
 
 POST_PATH="${POST_LIST[$INDEX]}"
+CATEGORY="$(echo "$POST_PATH" | cut -d'/' -f2)"
 FILE_NAME="$(basename "$POST_PATH")"
-POST_NAME="${FILE_NAME%.md}"
+
+# 파일명 앞 10자리를 날짜로 사용
+# 예: 2024-02-19-boj-title.md → 2024-02-19
+POST_DATE="${FILE_NAME:0:10}"
+
+# 이미지 파일 규칙:
+# assets/img/posts_img/날짜-서브디렉터리-순서.png
+# 예: assets/img/posts_img/2024-02-19-boj-01.png
+IMAGE_PREFIX="${POST_DATE}-${CATEGORY}"
+
 COMMIT_MESSAGE="feat: post ${FILE_NAME}"
 
 # 이미지 파일 자동 탐색
 mapfile -t IMAGE_LIST < <(
   git ls-tree -r --name-only "$SOURCE_REF" "$IMG_ROOT" \
-    | grep -E "/${POST_NAME}-[0-9]+\.png$" || true
+    | grep -E "/${IMAGE_PREFIX}-[0-9]+\.png$" || true
 )
 
 echo
@@ -73,6 +86,9 @@ echo "━━━━━━━━━━━━━━━━━━━━"
 echo
 echo "Post"
 echo "  $POST_PATH"
+echo
+echo "Image Prefix"
+echo "  ${IMAGE_PREFIX}-*.png"
 echo
 echo "Images"
 echo "  ${#IMAGE_LIST[@]} files"
