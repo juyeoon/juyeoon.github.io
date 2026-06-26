@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+# 현재 스크립트 위치 기준으로 프로젝트 루트 계산
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$ROOT_DIR"
@@ -9,6 +10,7 @@ SOURCE_REF="origin/draft"
 TARGET_BRANCH="main"
 POST_ROOT="_posts"
 IMG_ROOT="assets/img/posts_img"
+MAX_POST_LIST=5
 
 echo "━━━━━━━━━━━━━━━━━━━━"
 echo " Publish Post"
@@ -22,26 +24,32 @@ if [ -n "$(git status --porcelain)" ]; then
   exit 1
 fi
 
-# 최신 원격 정보 가져오기
-git fetch origin
+# 현재 브랜치 확인
+CURRENT_BRANCH="$(git branch --show-current)"
 
-# draft 브랜치에는 있고 main 브랜치에는 없는 _posts 하위 md 파일 목록
-mapfile -t POST_LIST < <(
-  git ls-tree -r --name-only "$SOURCE_REF" "$POST_ROOT" \
-    | grep '\.md$' \
-    | while read -r post; do
-        if ! git cat-file -e "origin/$TARGET_BRANCH:$post" 2>/dev/null; then
-          echo "$post"
-        fi
-      done
-)
-
-if [ "${#POST_LIST[@]}" -eq 0 ]; then
-  echo "❌ $SOURCE_REF 의 $POST_ROOT 에서 포스트를 찾을 수 없습니다."
+if [ "$CURRENT_BRANCH" != "draft" ]; then
+  echo "❌ publish-post.sh는 draft 브랜치에서 실행하는 것을 권장합니다."
+  echo "   현재 브랜치: $CURRENT_BRANCH"
   exit 1
 fi
 
-echo "공개 가능한 포스트"
+# 최신 원격 정보 가져오기
+git fetch origin
+
+# 최근 수정한 _posts 하위 md 파일 목록
+mapfile -t POST_LIST < <(
+  find "$POST_ROOT" -type f -name "*.md" -printf "%T@ %p\n" \
+    | sort -nr \
+    | head -n "$MAX_POST_LIST" \
+    | cut -d' ' -f2-
+)
+
+if [ "${#POST_LIST[@]}" -eq 0 ]; then
+  echo "❌ $POST_ROOT 에서 포스트를 찾을 수 없습니다."
+  exit 1
+fi
+
+echo "최근 수정한 포스트 ${MAX_POST_LIST}개"
 echo
 
 for i in "${!POST_LIST[@]}"; do
@@ -84,8 +92,8 @@ COMMIT_MESSAGE="feat: post ${FILE_NAME}"
 
 # 이미지 파일 자동 탐색
 mapfile -t IMAGE_LIST < <(
-  git ls-tree -r --name-only "$SOURCE_REF" "$IMG_ROOT" \
-    | grep -E "/${IMAGE_PREFIX}-[0-9]+\.png$" || true
+  find "$IMG_ROOT" -type f -name "${IMAGE_PREFIX}-*.png" 2>/dev/null \
+    | sort
 )
 
 echo
@@ -121,19 +129,42 @@ if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
   exit 0
 fi
 
+# 선택한 포스트와 이미지는 main으로 전환하기 전에 임시로 기억
+TEMP_DIR="$(mktemp -d)"
+TEMP_POST="$TEMP_DIR/$FILE_NAME"
+
+mkdir -p "$(dirname "$TEMP_POST")"
+cp "$POST_PATH" "$TEMP_POST"
+
+TEMP_IMAGE_DIR="$TEMP_DIR/images"
+mkdir -p "$TEMP_IMAGE_DIR"
+
+if [ "${#IMAGE_LIST[@]}" -gt 0 ]; then
+  for img in "${IMAGE_LIST[@]}"; do
+    cp "$img" "$TEMP_IMAGE_DIR/"
+  done
+fi
+
 # main으로 전환 후 최신화
 git switch "$TARGET_BRANCH"
 git pull --ff-only origin "$TARGET_BRANCH"
 
-# 선택한 포스트 가져오기
-git restore --source="$SOURCE_REF" -- "$POST_PATH"
+# 포스트 복사
+mkdir -p "$(dirname "$POST_PATH")"
+cp "$TEMP_POST" "$POST_PATH"
 
-# 이미지 가져오기
+# 이미지 복사
 if [ "${#IMAGE_LIST[@]}" -gt 0 ]; then
+  mkdir -p "$IMG_ROOT"
+
   for img in "${IMAGE_LIST[@]}"; do
-    git restore --source="$SOURCE_REF" -- "$img"
+    IMG_FILE="$(basename "$img")"
+    cp "$TEMP_IMAGE_DIR/$IMG_FILE" "$IMG_ROOT/$IMG_FILE"
   done
 fi
+
+# 임시 디렉터리 삭제
+rm -rf "$TEMP_DIR"
 
 # 변경사항 확인
 if [ -z "$(git status --porcelain)" ]; then
@@ -144,7 +175,9 @@ fi
 git add "$POST_PATH"
 
 if [ "${#IMAGE_LIST[@]}" -gt 0 ]; then
-  git add "${IMAGE_LIST[@]}"
+  for img in "${IMAGE_LIST[@]}"; do
+    git add "$IMG_ROOT/$(basename "$img")"
+  done
 fi
 
 git commit -m "$COMMIT_MESSAGE"
