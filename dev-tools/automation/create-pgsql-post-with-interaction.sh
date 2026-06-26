@@ -36,7 +36,8 @@ read -p "언어: " LANGUAGE
 read -p "난이도: " LEVEL
 
 echo
-read -p "현재 날짜를 바로 입력할까요? (y/n): " USE_DATE
+read -p "현재 날짜를 바로 입력할까요? (Y/n): " USE_DATE
+USE_DATE="${USE_DATE:-y}"
 
 for var in PROBLEM_TITLE PROBLEM_ID LANGUAGE LEVEL USE_DATE; do
     value="${!var}"
@@ -45,6 +46,10 @@ for var in PROBLEM_TITLE PROBLEM_ID LANGUAGE LEVEL USE_DATE; do
     printf -v "$var" "%s" "$value"
 done
 
+# 제목에는 입력한 그대로 사용
+TITLE_LANGUAGE="$LANGUAGE"
+
+# 파일명에는 소문자 사용
 LANGUAGE="${LANGUAGE,,}"
 USE_DATE="${USE_DATE,,}"
 
@@ -60,6 +65,7 @@ mkdir -p "$DRAFTING_DIR"
 
 sed \
     -e "s|{{PROBLEM_TITLE}}|${PROBLEM_TITLE}|g" \
+    -e "s|{{TITLE_LANGUAGE}}|${TITLE_LANGUAGE}|g" \
     -e "s|{{PROBLEM_ID}}|${PROBLEM_ID}|g" \
     -e "s|{{LANGUAGE}}|${LANGUAGE}|g" \
     -e "s|{{LEVEL}}|${LEVEL}|g" \

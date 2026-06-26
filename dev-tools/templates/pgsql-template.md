@@ -1,5 +1,5 @@
 ---
-title: "[Programmers/프로그래머스] SQL 고득점 Kit : {{PROBLEM_TITLE}} ({{LANGUAGE}})"
+title: "[Programmers/프로그래머스] SQL 고득점 Kit : {{PROBLEM_TITLE}} ({{TITLE_LANGUAGE}})"
 date: {{POST_DATE_TIME}}
 categories: [sql, programmers]
 tags:
@@ -8,7 +8,7 @@ tags:
 
   <br/>
 
-🙋 프로그래머스 SQL 고득점 Kit : {{PROBLEM_TITLE}} 풀이 ({{LANGUAGE}})
+🙋 프로그래머스 SQL 고득점 Kit : {{PROBLEM_TITLE}} 풀이 ({{TITLE_LANGUAGE}})
 
   <br/>
 
@@ -36,7 +36,7 @@ tags:
 
   <br/>
 
-## ⌨️ **제출 SQL문**
+## ⌨️ **제출 SQL**
 
 ```sql
 
@@ -65,6 +65,7 @@ tags:
 
 <br/>
 
+<!-- 
 ## 🧩 **관련 개념**
 
 <!-- 템플릿
@@ -73,7 +74,8 @@ tags:
 
 <br/>
 
-<!-- ## 🔗 **참고**
+<!-- 
+## 🔗 **참고**
 
 
  -->
