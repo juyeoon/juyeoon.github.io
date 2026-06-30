@@ -1,18 +1,16 @@
 ---
-title: "[solvesql] {{PROBLEM_TITLE}} ({{TITLE_LANGUAGE}})"
+title: "🌸 [solvesql] {{PROBLEM_TITLE}} ({{TITLE_LANGUAGE}})"
 date: {{POST_DATE_TIME}}
 categories: [sql, solvesql]
 tags:
   [sql, solvesql, solvesql level {{LEVEL}}, {{LANGUAGE}}]
+description: "solvesql '{{PROBLEM_TITLE}}' {{TITLE_LANGUAGE}} 풀이"
 ---
 
   <br>
 
-🌸 solvesql - "{{PROBLEM_TITLE}}" 풀이 ({{TITLE_LANGUAGE}})
 
-  <br>
-
-<center><a href="https://solvesql.com/problems/{{PROBLEM_TITLE_DASH}}/" style = 'font-size : 1.18rem; font-weight : 900'>solvesql - {{PROBLEM_TITLE}}</a></center>
+<center><a href="https://solvesql.com/problems/{{PROBLEM_TITLE_DASH}}/" style = 'font-size : 1.18rem; font-weight : 900'>👉 solvesql - {{PROBLEM_TITLE}}</a></center>
 
   <br>
 
