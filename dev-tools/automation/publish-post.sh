@@ -12,6 +12,8 @@ POST_ROOT="_posts"
 IMG_ROOT="assets/img/posts_img"
 MAX_POST_LIST=5
 
+DRAFT_BRANCH="draft"
+
 echo "━━━━━━━━━━━━━━━━━━━━"
 echo " Publish Post"
 echo "━━━━━━━━━━━━━━━━━━━━"
@@ -183,5 +185,8 @@ fi
 git commit -m "$COMMIT_MESSAGE"
 git push origin "$TARGET_BRANCH"
 
+git switch "$DRAFT_BRANCH"
+
 echo
 echo "✅ Publish 완료"
+echo "현재 브랜치: $(git branch --show-current)"
