@@ -8,14 +8,96 @@
 
 # Scripts
 
-| 스크립트                       | 설명                                                                                                |
-| ------------------------------ | --------------------------------------------------------------------------------------------------- |
-| `create-pgsql-post-*.sh`       | `pgsql-template.md` 템플릿을 복사하고 변수를 치환하여 `_drafts`에 포스트 생성                       |
-| `set-post-date.sh`             | 가장 최근 수정한 `_drafts` 포스트의 `date`와 파일명의 날짜를 현재 시각으로 변경                     |
-| `publish-post.sh`              | `draft` 브랜치의 `_posts`에서 공개할 포스트를 선택하여 `main` 브랜치로 복사하고 커밋 및 Push를 수행 |
-| `sync-main.sh`                 | `main` 브랜치의 공통 변경사항을 `draft` 브랜치로 동기화 (`git merge main` 대신 사용)                |
-| `run-local-jekyll-*`           | 로컬 Jekyll 서버를 실행                                                                             |
-| `build-and-run-local-jekyll.*` | 로컬에서 빌드 후 Jekyll 서버를 실행                                                                 |
+| 스크립트                                   | 설명                                                                                                |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| `create-general-posting.sh`                | 일반 포스트 템플릿으로 `_drafts`에 초안 생성                                                        |
+| `create-pgsql-post-with-interaction.sh`    | `pgsql-template.md` 템플릿을 복사하고 변수를 입력받아 `_drafts`에 포스트 생성                       |
+| `create-solvesql-post-with-interaction.sh` | SolveSQL 포스트 정보를 입력받아 `_drafts`에 초안 생성                                               |
+| `set-post-date.sh`                         | 가장 최근 수정한 `_drafts` 포스트의 `date`와 파일명의 날짜를 현재 시각으로 변경                     |
+| `complete-draft-post.sh`                   | 가장 최근 수정한 `_drafts` 포스트를 `_posts`로 복사하고 두 파일을 커밋                              |
+| `publish-post.sh`                          | `draft` 브랜치의 `_posts`에서 공개할 포스트를 선택하여 `main` 브랜치로 복사하고 커밋 및 Push를 수행 |
+| `sync-main.sh`                             | `main` 브랜치의 공통 변경사항을 `draft` 브랜치로 동기화 (`git merge main` 대신 사용)                |
+| `run-local-jekyll-*`                       | 로컬 Jekyll 서버를 실행                                                                             |
+| `build-and-run-local-jekyll.*`             | 로컬에서 빌드 후 Jekyll 서버를 실행                                                                 |
+
+---
+
+# create-general-posting.sh
+
+### 기능
+
+- `general-template.md` 템플릿 복사
+- 작성 날짜 입력 여부 선택
+- `_drafts`에 일반 포스트 생성
+- 생성된 포스트를 VS Code로 자동 열기
+
+### 실행
+
+```bash
+bash dev-tools/automation/create-general-posting.sh
+```
+
+---
+
+# create-pgsql-post-with-interaction.sh
+
+### 기능
+
+- `pgsql-template.md` 템플릿 복사
+- 문제 정보(제목, 번호, 언어, 난이도) 입력
+- Front Matter 변수 치환
+- `_drafts/pgsql`에 포스트 생성
+- 생성된 포스트를 VS Code로 자동 열기
+
+### 실행
+
+```bash
+bash dev-tools/automation/create-pgsql-post-with-interaction.sh
+```
+
+---
+
+# create-solvesql-post-with-interaction.sh
+
+### 기능
+
+- `solvesql-template.md` 템플릿 복사
+- 문제 정보(제목, 링크 변수, 언어, 난이도) 입력
+- Front Matter 변수 치환
+- `_drafts/solvesql`에 포스트 생성
+- 생성된 포스트를 VS Code로 자동 열기
+
+### 실행
+
+```bash
+bash dev-tools/automation/create-solvesql-post-with-interaction.sh
+```
+
+---
+
+# set-post-date.sh
+
+### 실행
+
+```bash
+bash dev-tools/automation/set-post-date.sh
+```
+
+---
+
+# complete-draft-post.sh
+
+### 커밋 메시지
+
+```text
+wip: {파일명.md} 작성 완료
+```
+
+### 실행
+
+```bash
+bash dev-tools/automation/complete-draft-post.sh
+```
 
 ---
 
@@ -61,18 +143,10 @@ bash dev-tools/automation/sync-main.sh
 
 ---
 
-# set-post-date.sh
-
-### 실행
-
-```bash
-bash dev-tools/automation/set-post-date.sh
-```
-
----
-
 # Templates
 
-| 템플릿              | 설명                                         |
-| ------------------- | -------------------------------------------- |
-| `pgsql-template.md` | 프로그래머스 SQL 포스트 작성용 템플릿입니다. |
+| 템플릿                 | 설명                                         |
+| ---------------------- | -------------------------------------------- |
+| `general-template.md`  | 일반 포스트 작성용 템플릿입니다.             |
+| `pgsql-template.md`    | 프로그래머스 SQL 포스트 작성용 템플릿입니다. |
+| `solvesql-template.md` | SolveSQL SQL 포스트 작성용 템플릿입니다.     |
