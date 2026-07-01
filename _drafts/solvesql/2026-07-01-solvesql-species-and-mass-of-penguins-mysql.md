@@ -84,3 +84,7 @@ ORDER BY
 
 <br>
  -->
+
+> 📚 **더 많은 solvesql 풀이**
+> 
+> > 👉 [solvesql 풀이 전체 보기](/categories/solvesql/)
