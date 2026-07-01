@@ -24,17 +24,23 @@ description: "solvesql '{{PROBLEM_TITLE}}' {{TITLE_LANGUAGE}} 풀이"
 
 - `SELECT`
 - `FROM`
-- `WHERE` ;
+- `WHERE` 
+- `GROUP BY`
+- `HAVING`
+- `ORDER BY`;
 
   🔽
 
 - `SELECT`
 - `FROM`
-- `WHERE` ;
+- `WHERE` 
+- `GROUP BY`
+- `HAVING`
+- `ORDER BY`;
 
   <br>
 
-## ⌨️ **제출 SQL**
+## ⌨️ **SQL 쿼리**
 
 ```sql
 
