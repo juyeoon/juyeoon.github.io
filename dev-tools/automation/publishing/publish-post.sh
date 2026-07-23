@@ -3,7 +3,7 @@ set -e
 
 # 현재 스크립트 위치 기준으로 프로젝트 루트 계산
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 cd "$ROOT_DIR"
 
 SOURCE_REF="origin/draft"

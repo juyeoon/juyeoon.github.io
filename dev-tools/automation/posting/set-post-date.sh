@@ -3,7 +3,7 @@
 # 가장 최근 수정한 draft 포스트에 현재 date를 입력하는 스크립트
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 DRAFT_MAIN_DIR="$ROOT_DIR/_drafts"
 
 # 현재 날짜

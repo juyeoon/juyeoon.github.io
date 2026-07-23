@@ -1,7 +1,7 @@
 @echo off
 
 REM 프로젝트 루트
-set PROJECT_ROOT=%~dp0..\..
+set PROJECT_ROOT=%~dp0..\..\..
 
 cd /d "%PROJECT_ROOT%"
 

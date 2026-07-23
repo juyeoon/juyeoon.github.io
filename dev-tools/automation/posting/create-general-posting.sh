@@ -4,9 +4,9 @@
 # draft 브랜치에서 _drafts 디렉터리에 일반적인 초안 포스트를 생성하는 스크립트
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 DRAFT_MAIN_DIR="$ROOT_DIR/_drafts"
-TEMPLATE_DIR="$(cd "$SCRIPT_DIR/../templates" && pwd)"
+TEMPLATE_DIR="$(cd "$SCRIPT_DIR/../../templates" && pwd)"
 
 POST_DATE="$(date '+%Y-%m-%d')"
 POST_DATE_TIME="$(date '+%Y-%m-%d %H:%M:%S %:z')"

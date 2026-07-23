@@ -6,19 +6,45 @@
 
 ---
 
+# 디렉터리 구조
+
+```text
+dev-tools/
+├── automation/
+│   ├── posting/      # 초안 작성 ~ _posts 이동
+│   ├── publishing/   # 브랜치 간 배포 / 동기화
+│   └── server/       # 로컬 Jekyll 서버 실행
+└── templates/         # 포스트 템플릿
+```
+
+---
+
 # Scripts
 
-| 스크립트                                   | 설명                                                                                                |
-| ------------------------------------------ | --------------------------------------------------------------------------------------------------- |
-| `create-general-posting.sh`                | 일반 포스트 템플릿으로 `_drafts`에 초안 생성                                                        |
-| `create-pgsql-post-with-interaction.sh`    | `pgsql-template.md` 템플릿을 복사하고 변수를 입력받아 `_drafts`에 포스트 생성                       |
-| `create-solvesql-post-with-interaction.sh` | SolveSQL 포스트 정보를 입력받아 `_drafts`에 초안 생성                                               |
-| `set-post-date.sh`                         | 가장 최근 수정한 `_drafts` 포스트의 `date`와 파일명의 날짜를 현재 시각으로 변경                     |
-| `complete-draft-post.sh`                   | 가장 최근 수정한 `_drafts` 포스트를 `_posts`로 복사하고 두 파일을 커밋                              |
-| `publish-post.sh`                          | `draft` 브랜치의 `_posts`에서 공개할 포스트를 선택하여 `main` 브랜치로 복사하고 커밋 및 Push를 수행 |
-| `sync-main.sh`                             | `main` 브랜치의 공통 변경사항을 `draft` 브랜치로 동기화 (`git merge main` 대신 사용)                |
-| `run-local-jekyll-*`                       | 로컬 Jekyll 서버를 실행                                                                             |
-| `build-and-run-local-jekyll.*`             | 로컬에서 빌드 후 Jekyll 서버를 실행                                                                 |
+## automation/posting
+
+| 스크립트                                   | 설명                                                                          |
+| ------------------------------------------ | ----------------------------------------------------------------------------- |
+| `create-general-posting.sh`                | 일반 포스트 템플릿으로 `_drafts`에 초안 생성                                 |
+| `create-pgsql-post-with-interaction.sh`    | `pgsql-template.md` 템플릿을 복사하고 변수를 입력받아 `_drafts`에 포스트 생성 |
+| `create-solvesql-post-with-interaction.sh` | SolveSQL 포스트 정보를 입력받아 `_drafts`에 초안 생성                        |
+| `set-post-date.sh`                         | 가장 최근 수정한 `_drafts` 포스트의 `date`와 파일명의 날짜를 현재 시각으로 변경 |
+| `complete-draft-post.sh`                   | 가장 최근 수정한 `_drafts` 포스트를 `_posts`로 복사하고 두 파일을 커밋       |
+
+## automation/publishing
+
+| 스크립트         | 설명                                                                                                |
+| ---------------- | --------------------------------------------------------------------------------------------------- |
+| `publish-post.sh` | `draft` 브랜치의 `_posts`에서 공개할 포스트를 선택하여 `main` 브랜치로 복사하고 커밋 및 Push를 수행 |
+| `sync-main.sh`    | `main` 브랜치의 공통 변경사항을 `draft` 브랜치로 동기화 (`git merge main` 대신 사용)                |
+
+## automation/server
+
+| 스크립트                            | 설명                                 |
+| ------------------------------------ | ------------------------------------ |
+| `run-local-jekyll-for-posting.bat`   | 로컬 Jekyll 서버를 실행              |
+| `draft-run-local-jekyll.bat`         | `--drafts` 옵션으로 로컬 Jekyll 서버를 실행 |
+| `build-and-run-local-jekyll.bat`     | 로컬에서 빌드 후 Jekyll 서버를 실행   |
 
 ---
 
@@ -34,7 +60,7 @@
 ### 실행
 
 ```bash
-bash dev-tools/automation/create-general-posting.sh
+bash dev-tools/automation/posting/create-general-posting.sh
 ```
 
 ---
@@ -52,7 +78,7 @@ bash dev-tools/automation/create-general-posting.sh
 ### 실행
 
 ```bash
-bash dev-tools/automation/create-pgsql-post-with-interaction.sh
+bash dev-tools/automation/posting/create-pgsql-post-with-interaction.sh
 ```
 
 ---
@@ -70,7 +96,7 @@ bash dev-tools/automation/create-pgsql-post-with-interaction.sh
 ### 실행
 
 ```bash
-bash dev-tools/automation/create-solvesql-post-with-interaction.sh
+bash dev-tools/automation/posting/create-solvesql-post-with-interaction.sh
 ```
 
 ---
@@ -80,7 +106,7 @@ bash dev-tools/automation/create-solvesql-post-with-interaction.sh
 ### 실행
 
 ```bash
-bash dev-tools/automation/set-post-date.sh
+bash dev-tools/automation/posting/set-post-date.sh
 ```
 
 ---
@@ -96,7 +122,7 @@ wip: {파일명.md} 작성 완료
 ### 실행
 
 ```bash
-bash dev-tools/automation/complete-draft-post.sh
+bash dev-tools/automation/posting/complete-draft-post.sh
 ```
 
 ---
@@ -112,7 +138,7 @@ feat: post <파일명.md>
 ### 실행
 
 ```bash
-bash dev-tools/automation/publish-post.sh
+bash dev-tools/automation/publishing/publish-post.sh
 ```
 
 ---
@@ -138,7 +164,7 @@ bash dev-tools/automation/publish-post.sh
 ### 실행
 
 ```bash
-bash dev-tools/automation/sync-main.sh
+bash dev-tools/automation/publishing/sync-main.sh
 ```
 
 ---
