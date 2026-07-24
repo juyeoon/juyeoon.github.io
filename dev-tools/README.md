@@ -19,6 +19,18 @@ dev-tools/
 
 ---
 
+# 실행
+
+모든 스크립트는 저장소 루트에서 아래 형식으로 실행합니다.
+
+```bash
+bash dev-tools/automation/<posting|publishing>/<스크립트>.sh
+```
+
+`.bat` 스크립트는 `dev-tools/automation/server/` 안의 파일을 더블클릭하거나 탐색기에서 직접 실행합니다.
+
+---
+
 # Scripts
 
 ## automation/posting
@@ -57,12 +69,6 @@ dev-tools/
 - `_drafts`에 일반 포스트 생성
 - 생성된 포스트를 VS Code로 자동 열기
 
-### 실행
-
-```bash
-bash dev-tools/automation/posting/create-general-posting.sh
-```
-
 ---
 
 # create-pgsql-post-with-interaction.sh
@@ -74,12 +80,6 @@ bash dev-tools/automation/posting/create-general-posting.sh
 - Front Matter 변수 치환
 - `_drafts/pgsql`에 포스트 생성
 - 생성된 포스트를 VS Code로 자동 열기
-
-### 실행
-
-```bash
-bash dev-tools/automation/posting/create-pgsql-post-with-interaction.sh
-```
 
 ---
 
@@ -93,25 +93,25 @@ bash dev-tools/automation/posting/create-pgsql-post-with-interaction.sh
 - `_drafts/solvesql`에 포스트 생성
 - 생성된 포스트를 VS Code로 자동 열기
 
-### 실행
-
-```bash
-bash dev-tools/automation/posting/create-solvesql-post-with-interaction.sh
-```
-
 ---
 
 # set-post-date.sh
 
-### 실행
+### 기능
 
-```bash
-bash dev-tools/automation/posting/set-post-date.sh
-```
+- 가장 최근 수정한 `_drafts` 포스트를 탐색
+- 파일명 앞 8자리 날짜를 현재 날짜로 변경
+- Front Matter의 `date` 값을 현재 날짜/시각으로 변경
 
 ---
 
 # complete-draft-post.sh
+
+### 기능
+
+- 가장 최근 수정한 `_drafts` 포스트를 탐색
+- `_posts` 하위 동일 경로로 복사
+- 두 파일을 `git add` 하고 커밋
 
 ### 커밋 메시지
 
@@ -119,15 +119,17 @@ bash dev-tools/automation/posting/set-post-date.sh
 wip: {파일명.md} 작성 완료
 ```
 
-### 실행
-
-```bash
-bash dev-tools/automation/posting/complete-draft-post.sh
-```
-
 ---
 
 # publish-post.sh
+
+### 기능
+
+- `draft` 브랜치인지, 작업 중인 변경사항이 없는지 확인
+- 최근 수정한 `_posts` 포스트 최대 5개 중 선택
+- 파일명·카테고리 규칙으로 포스트에 대응하는 이미지 자동 탐색
+- `main` 브랜치로 전환 후 선택한 포스트와 이미지를 복사, 커밋 및 Push
+- 완료 후 다시 `draft` 브랜치로 복귀
 
 ### 커밋 메시지
 
@@ -135,15 +137,15 @@ bash dev-tools/automation/posting/complete-draft-post.sh
 feat: post <파일명.md>
 ```
 
-### 실행
-
-```bash
-bash dev-tools/automation/publishing/publish-post.sh
-```
-
 ---
 
 # sync-main.sh
+
+### 기능
+
+- 작업 중인 변경사항이 없는지 확인 후 `draft` 브랜치로 전환
+- `origin/main` 기준으로 공통 파일·디렉터리를 `draft`에 반영
+- 변경사항이 있으면 확인 후 커밋 및 Push
 
 ### 동기화 대상
 
@@ -161,11 +163,34 @@ bash dev-tools/automation/publishing/publish-post.sh
 - `dev-tools`
 - `assets/img/posts_img`
 
-### 실행
+---
 
-```bash
-bash dev-tools/automation/publishing/sync-main.sh
-```
+# run-local-jekyll-for-posting.bat
+
+### 기능
+
+- 로컬 Jekyll 서버를 `--livereload` 옵션으로 실행 (초안 미포함)
+- 서버 기동 대기 후 브라우저에서 `localhost:4000` 자동으로 열기
+
+---
+
+# draft-run-local-jekyll.bat
+
+### 기능
+
+- 로컬 Jekyll 서버를 `--drafts --livereload` 옵션으로 실행 (초안 포함)
+- 서버 기동 대기 후 브라우저에서 `localhost:4000` 자동으로 열기
+
+---
+
+# build-and-run-local-jekyll.bat
+
+### 기능
+
+- `npm run build`로 테마 에셋 빌드
+- `jekyll clean`으로 기존 빌드 결과물 정리
+- 로컬 Jekyll 서버를 `--livereload` 옵션으로 실행
+- 서버 기동 대기 후 브라우저에서 `localhost:4000` 자동으로 열기
 
 ---
 
