@@ -1,7 +1,7 @@
 ---
-title: "[Linux] hostname을 변경하는 방법 총 정리 (임시 변경 vs 영구 변경) "
+title: "[Linux] hostname을 변경하는 방법 총정리 (임시 변경 vs 영구 변경) "
 date: 2026-08-25 11:21:32 +09:00
-categories: [Linux, System]
+categories: [linux, system]
 tags:
   [linux, hostname, hostnamectl, network]
 description: "hostname이 무엇인지 알아보고 honstname을 변경하는 방법에 대해서 정리한다."
