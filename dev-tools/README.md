@@ -41,6 +41,7 @@ bash dev-tools/automation/<posting|publishing>/<스크립트>.sh
 | `create-pgsql-post-with-interaction.sh`    | `pgsql-template.md` 템플릿을 복사하고 변수를 입력받아 `_drafts`에 포스트 생성 |
 | `create-solvesql-post-with-interaction.sh` | SolveSQL 포스트 정보를 입력받아 `_drafts`에 초안 생성                        |
 | `set-post-date.sh`                         | 가장 최근 수정한 `_drafts` 포스트의 `date`와 파일명의 날짜를 현재 시각으로 변경 |
+| `wip-commit-draft.sh`                      | 지정한(또는 가장 최근 수정한) `_drafts` 포스트와 본문에서 참조하는 이미지를 함께 wip 커밋 |
 | `complete-draft-post.sh`                   | 가장 최근 수정한 `_drafts` 포스트를 `_posts`로 복사하고 두 파일을 커밋       |
 
 ## automation/publishing
@@ -102,6 +103,29 @@ bash dev-tools/automation/<posting|publishing>/<스크립트>.sh
 - 가장 최근 수정한 `_drafts` 포스트를 탐색
 - 파일명 앞 8자리 날짜를 현재 날짜로 변경
 - Front Matter의 `date` 값을 현재 날짜/시각으로 변경
+
+---
+
+# wip-commit-draft.sh
+
+### 기능
+
+- 인자로 파일 경로(또는 파일명 일부)를 넘기면 해당 `_drafts` 포스트를 탐색, 없으면 가장 최근 수정한 `_drafts` 포스트를 사용
+- 파일명이 여러 개 검색되면 목록에서 선택
+- 대상 포스트 본문에서 `/assets/img/posts_img/` 경로로 참조하는 이미지를 자동으로 찾아 함께 커밋 (참조하지만 실제 파일이 없는 이미지는 경고만 출력)
+- 커밋만 수행하고 Push는 하지 않음
+
+### 사용법
+
+```bash
+bash dev-tools/automation/posting/wip-commit-draft.sh [파일 경로 또는 파일명 일부]
+```
+
+### 커밋 메시지
+
+```text
+wip: {파일명.md} 작성 중
+```
 
 ---
 
