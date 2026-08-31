@@ -48,7 +48,7 @@ bash dev-tools/automation/<posting|publishing>/<스크립트>.sh
 
 | 스크립트         | 설명                                                                                                |
 | ---------------- | --------------------------------------------------------------------------------------------------- |
-| `publish-post.sh` | `draft` 브랜치의 `_posts`에서 공개할 포스트를 선택하여 `main` 브랜치로 복사하고 커밋 및 Push를 수행 |
+| `publish-post.sh` | `draft` 브랜치의 `_posts`에서 공개할 포스트를 선택하여 `main` 브랜치로 복사하고 커밋 및 Push를 수행 (무관한 변경사항은 실행 전 `git stash`, 완료 후 `git stash pop` 필요) |
 | `sync-main.sh`    | `main` 브랜치의 공통 변경사항을 `draft` 브랜치로 동기화 (`git merge main` 대신 사용)                |
 
 ## automation/server
@@ -160,6 +160,12 @@ wip: {파일명.md} 작성 완료
 ```text
 feat: post <파일명.md>
 ```
+
+### 주의사항
+
+- 스크립트가 작업 중인 변경사항이 없는지(`git status --porcelain` 비어있는지) 먼저 확인하며, 남아있으면 바로 실패합니다.
+- 발행과 무관한 변경사항(다른 초안 작업 중인 파일 등)이 있다면 **실행 전에 직접 `git stash -u`로 치워두고, 완료 후 `git stash pop`으로 복원**하세요.
+- 스크립트 자체는 자동으로 stash/pop을 하지 않습니다. 스크립트 중간(브랜치 전환, pull, commit, push)에 실패하면 그대로 종료되므로, stash를 걸어둔 채 실행했다면 실패 시 `draft` 브랜치로 돌아온 뒤 `git stash pop`으로 직접 복원해야 합니다.
 
 ---
 
