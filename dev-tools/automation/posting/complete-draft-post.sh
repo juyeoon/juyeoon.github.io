@@ -65,8 +65,28 @@ cp "$DRAFT_FILE" "$POST_FILE"
 FILE_NAME="$(basename "$DRAFT_FILE")"
 COMMIT_MSG="wip: ${FILE_NAME} 작성 완료"
 
+# 본문에서 참조하는 이미지 경로 추출 (예: /assets/img/posts_img/xxx.png)
+IMAGE_PATHS="$(
+  grep -oE 'assets/img/[A-Za-z0-9_./-]+\.(png|jpg|jpeg|gif|svg|webp)' "$DRAFT_FILE" \
+    | sort -u
+)"
+
 # 두 파일 add
 git add "$DRAFT_FILE" "$POST_FILE"
+
+# 참조된 이미지가 실제로 존재하면 함께 add
+if [ -n "$IMAGE_PATHS" ]; then
+  while IFS= read -r IMG_REL_PATH; do
+    IMG_ABS_PATH="$ROOT_DIR/$IMG_REL_PATH"
+    if [ -f "$IMG_ABS_PATH" ]; then
+      git add "$IMG_ABS_PATH"
+      echo "이미지 추가: $IMG_REL_PATH"
+    else
+      echo "⚠️  본문에서 참조하지만 파일을 찾을 수 없는 이미지: $IMG_REL_PATH"
+    fi
+  done <<< "$IMAGE_PATHS"
+  echo
+fi
 
 # 커밋
 git commit -m "$COMMIT_MSG"
